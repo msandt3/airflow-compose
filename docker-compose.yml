@@ -1,0 +1,26 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data-setup/database_user.sql:/docker-entrypoint-initdb.d/database_user.sql
+      - ./data-setup/warehouse_tables.sql:/docker-entrypoint-initdb.d/warehouse_tables.sql
+      - ./data-setup/populate_tables.sql:/docker-entrypoint-initdb.d/populate_tables.sql
+  webserver:
+    image: puckel/docker-airflow:1.9.0
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+    ports:
+      - 8080:8080
+    command: webserver
+
