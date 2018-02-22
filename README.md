@@ -1,1 +1,1 @@
-Inspiration taken heavily from [Docker Airflow](https://github.com/puckel/docker-airflow)
+Inspiration taken heavily from [ETL with Airflow](https://gtoonstra.github.io/etl-with-airflow)
